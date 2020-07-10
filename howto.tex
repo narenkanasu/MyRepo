@@ -59,18 +59,18 @@ Notwithstanding the above, two particular implementations should be considered:
 \end{itemize}
 As a little bit of context, I'd not suggest GitHub Desktop as first choice client for actual coding. When I was last running a software team, we actually settled on Fork (whcih is not free). However for the more limited needs of authors I'd suggest that GitHub Desktop is more than adequate. As you'll see below, this is the solution that has been used by the author for this document.
 
-\section{Getting Setup with Git and GitHub}
+\section{Getting Setup with Git}
 There are two principle steps to getting set up -- registering and creating a GitHub account, and installing your local Git application. These two can actually be done quite independently and I'd suggest you get up and running with your local Git application before setting up on Git Hub. This is particularly the case if you decide to use GitHub Desktop as this makes for a very easy process to `push' your local repos up to GitHub. The alternative workflow is to create repos on GitHub then clone them to your local machine, which works fine and is only marginally more comlex. Whichever way ou end up doing it, there is a process to link your Git application to GitHub, this is fairly straightforward if you're using GitHub desktop and is another reason to use this application.
 
-\subsubsection{Assumptions}
-For the rest of this guide, it is assumed that you are using:
+\subsection{Assumptions}
+For the rest of this guide, it is assumed that:
 \begin{itemize}
-\item Windows 10.
-\item GitHub Desktop.
+\item You are running Windows 10.
+\item You have chosen GitHub Desktop.
 \item You are using LaTex to create your documents, MiKTex version 2.9.
 \item And you are setting up GitHub desktop before registering on GitHub.
 \end{itemize}
-If that is not the case, it doesn't necessarily mean that you can't use this guide, the broad steps to take should be the same regardless of actual implementation, but the screengrabs in particular will be of limited use.
+If that is not the case, it doesn't necessarily mean that you can't use this guide, the broad steps to take should be the same regardless of actual implementation, but the screengrabs in particular may be of limited use.
 
 \subsection{Installing and Running GitHub Desktop}
 Once you've downloaded the installer run it a snormal, the installation process is simple and direct and should launch the application straight away. Once its running you should see the following window (Figure \ref{startscreen})
@@ -82,8 +82,21 @@ Once you've downloaded the installer run it a snormal, the installation process 
 \end{figure}
 They following steps will set up a repo, initialise it with a tex file, make the initial `commit', build the document and make a second `commit' after the build.
 \begin{enumerate}
-\item Click the `Create New Repository' option, this will give you a new dialogue - Figure \ref{newrepo}. Fill int the details as required. Initialising with a README file is not essential but good practice. If you are using LaTex then click the crop down against `GitIgnore' and select `Tex'.
+\item Click the `Create New Repository' option, this will give you a new dialogue -- Figure \ref{newrepo}. Fill in the details as required. Initialising with a README file is not essential but good practice. If you are using LaTex then click the drop down against `GitIgnore' and select `Tex'. Click the `Create repository' button. This will lead you to the next screen -- Figure \ref{repofirstview}.
+\item If you look in Windows Explorer you should see a folder with three files and one subfolder -- Figure \ref{repofirstviewexplorer}. The `.git' folder is hidden so may not be visible, but this is where all the information for the repo is stored, including the actual files, although not in a format that allows you to view them. If you open the .gitgnore file, you will see that it lists out a large number of file types that Git will ignore. At this stage there is only one branch in this repo -- called `master' -- and in most cases you will probably only need this one branch. If you click on the `History' tab, you will see that Git has recorded the initial creation of the Git files, this is the initial `commit'.
+\item Create a tex file in this folder and edit it. Git will pick up the new file and you should see it in the repo view -- Figure \ref{firstfile}. 
+\item Create your first commit. A commit is the process of actually getting Git to create internal file objects and track changes, effectively making a snapshot. The boxes in the lower left of the screen should be filled in, the desktop will fill in the small summary description box (you can overwrite this if you wish), but it's good practice to add more to the description box too. You can still make changes at this stage and Git will display them for you, but until they are committed Git won't be tracking anything you do. Click the `Commit to master' button bottom left.
+\item Once the commit is complete, the view will revert essentially to that of Figure \ref{repofirstview}, with no local changes being displayed. If you now edit the tex file, you will see how Git records and displays changes -- Figure \ref{firstchange}. There are a few options as this stage:
+\begin{itemize}
+\item Continue editing.
+\item Do another commit.
+\item Discard the changes - if you right click the small yellow circle--in--a--square by the file name, this gives you further options, for example to ignore this file, but the first one is to discard the changes. Note that if you do discard changes, Git will edit the file for you on disk, so make sure that's what you really want to do. If you go to the History tab you will see how your commit has been recorded -- Figure \ref{commithistory}.
+\end{itemize}
+\item Edit the tex file such that it will build, then build the document. This will create the usual plethora of LaTex working files, but these should all be ignored except for the final output (which we assume is a pdf file) -- Figure \ref{firstbuild} where we can see that all Git has registered is the new pdf file.
+\item Do another commit so that Git records the pdf file. In this case the summary description may not be filled in for you, so that needs to be done before Git will allow you to do the commit. Once the commit completes, you will be back to Figure \ref{repofirstview} again.
 \end{enumerate}
+If you have got this far, then you have basically learnt how to edit and build LaTex whilst recording your changes with Git. If that is all you want to do, i.e. you don't need to use the cloud facilities of GitHub, then, whilst there are some slightly more advanced features described below, you are essentially done.
+
 \begin{figure}
 \centering
 \includegraphics{NewRepo}
@@ -91,9 +104,73 @@ They following steps will set up a repo, initialise it with a tex file, make the
 \label{newrepo}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{NewRepoFirstView}
+\caption{Desktop view after creating the repo.}
+\label{repofirstview}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{NewRepoFirstViewExplorer}
+\caption{Windows Explorer view after creating the repo.}
+\label{repofirstviewexplorer}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{FirstFile}
+\caption{Desktop view after creating the first file.}
+\label{firstfile}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{FirstChange}
+\caption{Desktop view after editing a file after a commit.}
+\label{firstchange}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{CommitHistory}
+\caption{Desktop view of the History tab.}
+\label{commithistory}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{FirstBuild}
+\caption{Desktop view after building the document.}
+\label{firstbuild}
+\end{figure}
+
+\section{Setting Up and Using GitHub}
+You will see in the Desktop that you are being given the option to `publish' your repo to GitHub, there are basically three steps to this -- create an account on GitHub, link it to GitHubDesktop, publish.
+\begin{enumerate}
+\item Create your GitHub account. This is fairly straight forward, requiring all the usual thigns you need to create accounts on websites.
+\item Click the `Publish' button, this will give you a dialogue asking you to log into GitHub. Ignore the Enterprise Server option and sign in. In the following screen you get the option to sign in with the dialogue or through your browser. If you use the dialogue then the process completes more or less automatically, but you should get a message to your GitHub registered email address saying:
+\begin{quote}
+[GitHub] A first-party GitHub OAuth application has been added to your account.
+\end{quote}
+This is how GitHub links your deskptop application to your GitHub account. If you instead use the `sign in using your browser' button, this achieves the same end, but with a bit more transparency as to what GitHub is doing.
+\item If you now go to your GitHub account in your browser (you may need to log in), you will see that the repo we created above has been published to GitHub, including all the commits we did.
+\end{enumerate}
+If you now make further changes and commit them, using the same process as above, the next screen is slightly different to Figure \ref{repofirstview}. Here we see that the option now is to `Push' our latest changes to GitHub, see Figure \ref{firstpush}. How often you push chnages to GitHub is up to you, it could be every commit, perhaps if you are making some crucial changes you really don't want to lose, or it could be daily or longer intervals.
+
+Note that when you do push, it effectively clones your local repo onto the GitHub remote repo, so \textit{all} your commits, not just the last one, will be pushed.
 
 
 
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{FirstPush}
+\caption{Desktop view after publishing the repo.}
+\label{firstpush}
+\end{figure}
 
 
 
