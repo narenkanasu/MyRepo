@@ -1,2 +1,2 @@
 # GitHubForAuthors
- HOWTO guide for using Git/GitHub with LaTex.
+ HOWTO document for using Git/GitHub with LaTex.
