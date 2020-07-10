@@ -191,7 +191,7 @@ It may beocme necessary to revert to a previous commit. This is achieved through
 \item Doing a revert is recorded by Git as if it was any other change, so in principle you can revert the reversion.
 \item If you want to revert back more than one commit, you really need to do all the intervening reversions in (reverse) sequence, otherwise Git will start talking about merges and file conflicts.
 \end{itemize}
-Regarding the last point, if this is really what you want to do, there is a better way, although only if you have pushed changes to GitHub.
+Regarding the last point, if this is really what you want to do, there is a better way (see below), although only if you have pushed changes to GitHub.
 
 \subsection{Tagging}
 Tagging (sometimes called labelling) is a standard process where one particular commit is tagged. Typically (when writing software) this is done where a commit aligns with a release, in which case you'd tag the commit with the release version number. Figure \ref{revert} shows the dialogue in the History tag, the second option of which is to create a tag. Any commit can actually be tagged at any time, but it's good practice to tag a commit at the time it is committed. Once tagged, the History tab will show the tagged commit (Figure \ref{tag}).
@@ -203,6 +203,44 @@ Tagging (sometimes called labelling) is a standard process where one particular 
 \label{tag}
 \end{figure}
 
+\subsection{Recreating an Older Version}
+If it becomes necessray to re-create an older version of a document there are two ways. The first of which would be to revert back to the appropriate commit, but this is complex and perhaps risky and will also load the history with a lot of additional commits that will soon become confusing.
 
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{GHTag}
+\caption{Repo on GitHub.}
+\label{ghtag}
+\end{figure}
+
+The best way to revert back to an older version of a document is to download it from GitHub against a tag. Figure \ref{ghtag} is a view of a repo on GitHub, you can see that this is the master branch and the files dispalyed are the most current ones. If you click the green Code button you can in fact download a zip of all the files from this commit. If you click on `commits' you will get a page which lists all the commits, and there are options to browse all the files in a particular commit, in which case the Code button will also give you an option to download a zip of files from that particular commit.
+
+\begin{figure}
+\centering
+\includegraphics{GHTag2}
+\caption{List of tagged commits.}
+\label{ghtag2}
+\end{figure}
+
+However the easiest option is to tag the commit you are interested in, then you can access that commit directly using the `tags' link under `Releases' (provided, of course, that the tag has been pushed to GitHub). This link will take you to a list of tagged commits and you can download directly from the list, see Figure \ref{ghtag2}. 
+
+Once you have a zip with the tagged files, there are a number of things that could be done. The simplest is just to use the files to re--buuld the document using MiKTex, without necessarily merging the files back into the repo. However, if you do want this version of your document in Git then there are the following options:
+\begin{itemize}
+\item Create a new repo. This is the easiest and cleanest solution, but may not always be what you need.
+\item Create a new branch, unzip the files into this branch. This will create a branch that matches the tag, but with one commit only.
+\item Unzip the files into the current branch and commit.
+\end{itemize}
+
+
+\subsection{Keeping Things Tidy}
+Ne aspect of LaTex is that it does create a lot of additional files. In particular packages such as TikZ-Feynman creates a large number of such files. To keep your fodler tidy, it often makes sense to put as many of the working files as possible in sub folders. If you do this Git will still find them, and load them into the changes list as long as they are not ignored files.
+
+For a package like TikZ-Feynman, what you end up with is each Feynman diagram being tracked, and often this just clutters the repo without adding much value -- the diagrams can always be re--built from code so storing them on GitHub or in Git has limited value. However you can't siply aignore all pdf files as this will ifgnore the main file too. In principle you can create a regexp type entry in .gitignore which will cause Git to ignore the figure pdfs, but still see the main output. However the easiest option is to edit .gitignore to ignore the whole folder. This is achieved by adding the following to .gitignore:
+\begin{quote}
+\# Folder for TikZ-Feynman files
+
+pgf-img/
+\end{quote}
+Where `pgf-img' is the subfolder that the package uses to create the figures (the comment line isn't strictly necessay of course).
 
 \end{document}
