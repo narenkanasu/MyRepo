@@ -158,18 +158,49 @@ You will see in the Desktop that you are being given the option to `publish' you
 This is how GitHub links your deskptop application to your GitHub account. If you instead use the `sign in using your browser' button, this achieves the same end, but with a bit more transparency as to what GitHub is doing.
 \item If you now go to your GitHub account in your browser (you may need to log in), you will see that the repo we created above has been published to GitHub, including all the commits we did.
 \end{enumerate}
-If you now make further changes and commit them, using the same process as above, the next screen is slightly different to Figure \ref{repofirstview}. Here we see that the option now is to `Push' our latest changes to GitHub, see Figure \ref{firstpush}. How often you push chnages to GitHub is up to you, it could be every commit, perhaps if you are making some crucial changes you really don't want to lose, or it could be daily or longer intervals.
+If you now make further changes and commit them, using the same process as above, the next screen is slightly different to Figure \ref{repofirstview}. Here we see that the option now is to `Push' our latest changes to GitHub, see Figure \ref{firstpush}. How often you push chnages to GitHub is up to you, it could be every commit, perhaps if you are making some crucial changes you really don't want to lose, or it could be daily or longer intervals. Note that when you do push, it effectively clones your local repo onto the GitHub remote repo, so \textit{all} your commits, not just the last one, will be pushed.
 
-Note that when you do push, it effectively clones your local repo onto the GitHub remote repo, so \textit{all} your commits, not just the last one, will be pushed.
-
-
-
+Other than the advanced topics below, the guide is more or less complete.
 
 \begin{figure}
 \centering
 \includegraphics[width=\linewidth]{FirstPush}
 \caption{Desktop view after publishing the repo.}
 \label{firstpush}
+\end{figure}
+
+\section{(Slightly) More Advanced Topics}
+\subsection{Working with Branches}
+Branches were briefly discussed above; in most cases when writing a document the process is pretty linear and it will probably not be necessary to use branches. However there may be occasions where it becomes appropriate. For example an early draft may be sent out for review, and the easiest way to maintain the source that matches that draft would be to create a branch at that point and carry out further work in the new branch.
+
+Creating a branch is simple enough, just use the menu option `Branch/New Branch...'. Initially the branch is identical to the master, but as you make changes it will, of course begin to diverge. As the branch is created locally it will not be present in the remote repo on GitHub until it gets published.
+
+Finally a point on how GitHub Desktop works with the file system in Windows. The file folder that the repo is mapped to is effectively a workspace for the \textit{current} branch. This means that if you swap between branches in the same repo, what Git will do is actually delete the files present in the main folder and replace them with the set of files for the branch you're switching to. If there are un--committed changes in the previous branch, you get the option to either `stash' them or take them with you to the next branch. However, if you look in Windows Explorer, it is not apparent which branch is present, you need Git for that. Furthermore, as the switch process involves deleting and creating files, if a file in the previous branch is locked by any other application -- your text editor or MiKTex -- then this can cause un--defined behaviour, for example the branch switch fails, or it succeeds but one file that is locked is not deleted, so to Git will appears as a new file in the next branch, and so on. So the message is, tke care when switching branches, and in particular make sure that any other application that may be accessing the files is closed.
+
+\subsection{Reverting a Commit}
+It may beocme necessary to revert to a previous commit. This is achieved through the History tab, if you right click in one commit, you get a small dialogue with four options (Figure \ref{revert}), the first of which is to Revert to the selected Commit. If you select that option, Git will revert your files back to the state they were in in the selected commit. There are two things to note:
+
+\begin{figure}
+\centering
+\includegraphics{Revert}
+\caption{Reverting to a previous commit.}
+\label{revert}
+\end{figure}
+
+\begin{itemize}
+\item Doing a revert is recorded by Git as if it was any other change, so in principle you can revert the reversion.
+\item If you want to revert back more than one commit, you really need to do all the intervening reversions in (reverse) sequence, otherwise Git will start talking about merges and file conflicts.
+\end{itemize}
+Regarding the last point, if this is really what you want to do, there is a better way, although only if you have pushed changes to GitHub.
+
+\subsection{Tagging}
+Tagging (sometimes called labelling) is a standard process where one particular commit is tagged. Typically (when writing software) this is done where a commit aligns with a release, in which case you'd tag the commit with the release version number. Figure \ref{revert} shows the dialogue in the History tag, the second option of which is to create a tag. Any commit can actually be tagged at any time, but it's good practice to tag a commit at the time it is committed. Once tagged, the History tab will show the tagged commit (Figure \ref{tag}).
+
+\begin{figure}
+\centering
+\includegraphics{Tag}
+\caption{A tagged commit.}
+\label{tag}
 \end{figure}
 
 
