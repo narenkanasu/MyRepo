@@ -15,10 +15,13 @@
 \setlength{\textheight}{262mm}
 \setlength{\oddsidemargin}{20mm}
 \setlength{\evensidemargin}{20mm}
+\pagestyle{myheadings}
+\markboth{V0.B}{V0.B}
 \begin{document}
 \maketitle
 \section{Introduction}
 \subsection{What is Git and GitHub}
+\label{whatis}
 Git is a software source control system, initially written by Linus Torvalds specifically to support Linux kernel development, the assessment being that other systems then available were not up to the demands of Limux development. Development of Git was started in 2005 and Git is now open--source software distributed under the GNU GPL.
 
 In common with other systems Git provides the means for:
@@ -32,7 +35,9 @@ In common with other systems Git provides the means for:
 
 Git also has a similar top level structure to other solutions -- projects or applications roughly correspond to `repositories' (often called `repos'). Within any one repo there will exist a number of branches, and typically in software development a branch represents a version of the code being developed to address one specific issue, which could be a new feature or fixing a bug. The key feature of such systems is that they maintain a full record of changes to all files that are held within the repo, for software this is required for tracking purposes, e.g. who made what change when, but it also provides a complete history of the software as it has been developed.
 
-GitHub is effectively a cloud based implentation of Git, with a browser interface into the more sophisticated functions, such as `pull requests', code reviews, merging, release management and so on (none of which really concern authors). However GitHub cannot effectively be used on its own, it really needs a local Git implementation and as such, for our needs, Git Hub is really just cloud storage (although it does offer some facilities that your local Git application doesn't have).
+What makes Git quite unusual is that repos are all stored locally. This is not to say that it does not work with remote repositories, but the method of working is for local and remote repos to be kept synchronised, so they are effectively copies (or clones) of each other; the principal advantage this brings is speed.
+
+GitHub is effectively a cloud system offering remote repo services to Git users. As well as being a repo server it has a browser interface into the more sophisticated software engineering functions, such as `pull requests', code reviews, merging, release management and so on (none of which really concern authors). However, as efefctively just a remote repo server, GitHub cannot effectively be used on its own, it really needs a local Git implementation and as such, for our needs, Git Hub is really just cloud storage (although it does offer some facilities that your local Git application doesn't have).
 
 \subsection{Relevance to Authors}
 Authors, although they are not writing software, have similar requirements to software engineers:
@@ -155,7 +160,7 @@ If you have got this far, then you have basically learnt how to edit and build L
 \label{firstbuild}
 \end{figure}
 
-\section{Setting Up and Using GitHub}
+\section{Setting Up and using GitHub}
 You will see in the Desktop that you are being given the option to `publish' your repo to GitHub, there are basically three steps to this -- create an account on GitHub, link it to GitHub Desktop, publish.
 \begin{enumerate}
 \item Create your GitHub account. This is fairly straight forward, requiring all the usual things you need to create accounts on websites.
@@ -244,11 +249,25 @@ Once you have a zip with the tagged files, there are a number of things that cou
 One aspect of LaTex is that it does create a lot of additional files. In particular packages such as TikZ-Feynman create a large number of such files. To keep your folder tidy, it often makes sense to put as many of the working files as possible in sub folders. If you do this Git will still find them, and load them into the changes list as long as they are not ignored files.
 
 For a package like TikZ-Feynman, what you end up with is each Feynman diagram being tracked, and often this just clutters the repo without adding much value -- the diagrams can always be re--built from code so storing them on GitHub or in Git has limited value. However you can't simply ignore all pdf files as this will ignore the main file too. In principle you can create a regexp type entry in .gitignore which will cause Git to ignore the figure pdfs, but still see the main output. However the easiest option is to edit .gitignore to ignore the whole folder. This is achieved by adding the following to .gitignore:
-\begin{quote}
+\begin{quote}\setlength{\parskip}{0pt}
 \# Folder for TikZ-Feynman files
 
 pgf-img/
 \end{quote}
 Where `pgf-img' is the subfolder that the package uses to create the figures (the comment line isn't strictly necessary of course).
+
+\subsubsection*{Version History}
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[h]
+\begin{tabular}{|c|c|p{60mm}|}
+\hline
+Version&Date&Comment\\
+\hline
+0.A&10 Jul 20&Initial Draft\\
+\hline
+0.B&14 Jul 20&Minor updates to Section \ref{whatis}\\
+\hline
+\end{tabular}
+\end{table}
 
 \end{document}
