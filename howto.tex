@@ -16,7 +16,8 @@
 \setlength{\oddsidemargin}{20mm}
 \setlength{\evensidemargin}{20mm}
 \pagestyle{myheadings}
-\markboth{V0.B}{V0.B}
+\newcommand{\currentversion}{0.C}
+\markboth{V\currentversion}{V\currentversion}
 \begin{document}
 \maketitle
 \section{Introduction}
@@ -37,7 +38,7 @@ Git also has a similar top level structure to other solutions -- projects or app
 
 What makes Git quite unusual is that repos are all stored locally. This is not to say that it does not work with remote repositories, but the method of working is for local and remote repos to be kept synchronised, so they are effectively copies (or clones) of each other; the principal advantage this brings is speed.
 
-GitHub is effectively a cloud system offering remote repo services to Git users. As well as being a repo server it has a browser interface into the more sophisticated software engineering functions, such as `pull requests', code reviews, merging, release management and so on (none of which really concern authors). However, as efefctively just a remote repo server, GitHub cannot effectively be used on its own, it really needs a local Git implementation and as such, for our needs, Git Hub is really just cloud storage (although it does offer some facilities that your local Git application doesn't have).
+GitHub is effectively a cloud system offering remote repo services to Git users. As well as being a repo server it has a browser interface into the more sophisticated software engineering functions, such as `pull requests', code reviews, merging, release management and so on (none of which really concern authors). However, as it is  effectively just a remote repo server, GitHub cannot really be used on its own, it needs a local Git implementation and as such, for our needs, Git Hub is really just cloud storage (although it does offer some facilities that your local Git application doesn't have).
 
 \subsection{Relevance to Authors}
 Authors, although they are not writing software, have similar requirements to software engineers:
@@ -47,30 +48,32 @@ Authors, although they are not writing software, have similar requirements to so
 \item For authors using LaTex -- because of it's sophistication -- other than file backup software, there is no obvious solution to the need for revision control, archiving and so on.
 \item Authors need to periodically archive and/or back up their material.
 \item They would preferably back up to cloud storage as well as any local media -- local hard--drives, additional home file storage and so on.
-\item If necessary they may want to work on two or more versions of essentially the same document, but keeping them separate.
+\item If necessary they may want to work on two or more versions of essentially the same document, but keep them separate.
 \item They may want to retrieve an older version of the source material, either by rolling back changes or retrieving a complete set of source material that has been suitably labelled.
 \end{itemize}
-All these requirements are essentially the same as the ones software engineers have when writing code, although authors only need a modest subset of the full set of features that Git or any other source control system provides. However the general message is that a system like Git/GitHub has many of the features that authors look for, indeed (as we'll see below) there are setup files designed specifically for Tex/LaTex, which implies that GitHub is alreayd beng used in this way.
+All these requirements are essentially the same as the ones software engineers have when writing code, although authors only need a modest subset of the full set of features that Git or any other source control system provides. However the general message is that a system like Git/GitHub has many of the features that authors look for, indeed (as we'll see below) there are setup files designed specifically for Tex/LaTex, which implies that GitHub is already beng used in this way.
 
-\textbf{Disadvantages} -- powerful though Git is, it isn't perfect, the principle limitation is that the file history isn't a simple archive of previous version of files and documents. So if you happen to want to go back a period of time to an older verison of a document, it is not as simple as browsing through folders on Windows Explorer and copy files, the \textit{only} way to get to an old version of a file is to access the storage via Git. If this is a serious concern for you, then a Git based system is not the solution for you, although other solutions such as CVS may work.
+\textbf{Disadvantages} -- powerful though Git is, it isn't perfect, the principle limitation is that the file history isn't a simple archive of previous version of files and documents. So if you happen to want to go back a period of time to an older verison of a document, it is not as simple as browsing through folders on Windows Explorer and copying files, the \textit{only} way to get to an old version of a file is to access the storage via Git. If this is a serious concern for you, then a Git based system is not the solution for you.
 
 \subsection{Technical Description}
-This is not in any way a full description of the inner workings of Git, but part of the purpose of this document is to explain why you might want to use Git/GitHub when you aren't already.
+This is not in any way a full description of the inner workings of Git, but part of the purpose of this document is to explain why you might want to use Git/GitHub when you aren't already, and for that some knowledge of how Git works will be useful.
 
-Unlike many equivalent systems, Git does not primarily use a client/server model, the entire system can be deployed to a single machine, although collaboration facilities would clearly be limited. In practice Git can be considered as a private file system with a set of coded utilities running on top. The utilities manage files within repos and branches, storing files, tracking changes and so on. Git has been primarily written to run on Linux and the actual user interface has always been the command line. However the system has become so successful that there are many third party applications that provide a traditional window based GUI. A little bit of web searching will quickly lead you to many examples, e.g. GitKraken, SmartGit, Fork and so on. A quick online search for `git gui' will quickly lead you to a plethora of alternatives, but be aware many are not free, or have proprietary licences or hidden drawbacks.
+Unlike many equivalent systems, Git does not primarily use a client/server model, the entire system can be deployed to a single machine, although collaboration facilities would clearly be limited. In practice Git can be considered as a private file system with a set of coded utilities running on top. The utilities manage files within repos and branches, storing files, tracking changes and so on. The basic principle is that a set of one or more working files is maintained in a workspace. These files can be edited and updated and Git will track changes made more or less as they happen. The code will also track new files being added to the workspace and older files being removed. Periodically these (cumulative) changes are `committed'. This is the process of effectively taking and storing a snapshot of the current working state of the files in the workspace. When this happens you get a precise record of who made what changes and when. In this way the complete development history of a project is setup and maintained. 
+
+Git has been primarily written to run on Linux and the actual user interface has always been the command line. However the system has become so successful that there are many third party applications that provide a traditional window based GUI. A online search for `git gui' will quickly lead you to a plethora of examples, e.g. GitKraken, SmartGit, Fork and so on, but be aware many are not free, or have proprietary licences or hidden drawbacks.
 
 Notwithstanding the above, two particular implementations should be considered:
 \begin{itemize}
 \item Git For Windows -- this is effectively the `official' Windows version from the open--source collaboration that maintains and develops Git.
 \item GitHub Desktop - assuming that you're intending to use GitHub, then GitHub Desktop seems an obvious solution for ease of integration. Open source, free and available under the MIT Licence, with reasonably good support and also a thriving community.
 \end{itemize}
-As a little bit of context, I'd not suggest GitHub Desktop as first choice client for actual coding. When I was last running a software team, we actually settled on Fork (which is good but not free). However for the more limited needs of authors I'd suggest that GitHub Desktop is more than adequate. As you'll see below, this is the solution that has been used by the author of this document.
+As a little bit of context, I'd not suggest GitHub Desktop as first choice client for actual coding. When I was last running a software team, we actually settled on Fork (which is good but not free). However for the more limited needs of authors I'd suggest that GitHub Desktop is more than adequate. As you'll see below, this is the solution that I have used for this document.
 
 \subsection{What This Document Is Not}
 Although, of a necessity, this HOWTO document describes a lot of the basic features of Git and GitHub, it is not a guide to either of those systems, it is just a guide to getting set up and using those features of the system that work well for authors.
 
 \section{Getting Setup with Git}
-There are two principle steps to getting set up -- registering and creating a GitHub account, and installing your local Git application. These two can actually be done quite independently and I'd suggest you get up and running with your local Git application before setting up on Git Hub. This is particularly the case if you decide to use GitHub Desktop as this makes for a very easy process to `push' your local repos up to GitHub. The alternative workflow is to create repos on GitHub then clone them to your local machine, which works fine and is only marginally more comlex. Whichever way you end up doing it, there is a process to link your Git application to GitHub, this is fairly straightforward if you're using GitHub Desktop and is another reason to use this application.
+There are two principle steps to getting set up -- registering and creating a GitHub account, and installing your local Git application. These two can actually be done quite independently and I'd suggest you get up and running with your local Git application before setting up on Git Hub. This is particularly the case if you decide to use GitHub Desktop as this makes for a very easy process to `push' your local repos up to GitHub. The alternative workflow is to create repos on GitHub then clone them to your local machine, which works fine and is only marginally more complex. Whichever way you end up doing it, there is a process to link your Git application to GitHub, this is fairly straightforward if you're using GitHub Desktop and is another reason to use this application.
 
 \subsection{Assumptions}
 For the rest of this guide, it is assumed that:
@@ -83,7 +86,7 @@ For the rest of this guide, it is assumed that:
 If that is not the case, it doesn't necessarily mean that you can't use this guide, the broad steps to take should be the same regardless of actual implementation, but the screengrabs in particular may be of limited use.
 
 \subsection{Installing and Running GitHub Desktop}
-Once you've downloaded the installer run it as normal, the installation process is simple and direct and should launch the application straight away. Once its running you should see the window shown in Figure \ref{startscreen}.
+Once you've downloaded the GitHub Desktop installer run it as normal, the installation process is simple and direct and should launch the application straight away. Once its running you should see the window shown in Figure \ref{startscreen}.
 
 \begin{figure}
 \centering
@@ -111,7 +114,7 @@ The following steps will set up a repo, initialise it with a tex file, make the 
 \item Click the `Create New Repository' option, this will give you a new dialogue -- Figure \ref{newrepo}. Fill in the details as required. Initialising with a README file is not essential but good practice. If you are using LaTex then click the drop down against `GitIgnore' and select `Tex'. Click the `Create repository' button. This will lead you to the next screen -- Figure \ref{repofirstview}.
 \item If you look in Windows Explorer you should see a folder with three files and one subfolder -- Figure \ref{repofirstviewexplorer}. The `.git' folder is hidden so may not be visible, but this is where all the information for the repo is stored, including the actual files, although not in a format that allows you to view them. If you open the .gitgnore file, you will see that it lists out a large number of file types that Git will ignore. At this stage there is only one branch in this repo -- called `master' -- and in most cases you will probably only need this one branch. If you click on the `History' tab, you will see that Git has recorded the initial creation of the Git files, this is the initial `commit'.
 \item Create a tex file in this folder and edit it. Git will pick up the new file and you should see it in the repo view -- Figure \ref{firstfile}. 
-\item Create your first commit. A commit is the process of actually getting Git to create internal file objects and track changes, effectively making a snapshot. The boxes in the lower left of the screen should be filled in, the desktop will fill in the small summary description box (you can overwrite this if you wish), but it's good practice to add more to the description box too. You can still make changes at this stage and Git will display them for you, but until they are committed Git won't be tracking anything you do. Click the `Commit to master' button bottom left.
+\item Create your first commit. A commit is the process of actually getting Git to create internal file objects and track changes, effectively making a snapshot. The boxes in the lower left of the screen should be filled in, the desktop will fill in the small summary description box (you can overwrite this if you wish), but it's good practice to add more to the description box too. You can still make changes at this stage and Git will display them for you, but until they are committed all changes are ephemeral. Click the `Commit to master' button bottom left.
 \item Once the commit is complete, the view will revert essentially to that of Figure \ref{repofirstview}, with no local changes being displayed. If you now edit the tex file, you will see how Git records and displays changes -- Figure \ref{firstchange}. There are a few options as this stage:
 \begin{itemize}
 \item Continue editing.
@@ -119,10 +122,10 @@ The following steps will set up a repo, initialise it with a tex file, make the 
 \item Discard the changes - if you right click the small yellow circle--in--a--square by the file name, this gives you further options, for example to ignore this file, but the first one is to discard the changes. Note that if you do discard changes, Git will edit the file for you on disk, so make sure that's what you really want to do. 
 \end{itemize}
 If you go to the History tab you will see how your commit has been recorded -- Figure \ref{commithistory}.
-\item Edit the tex file such that it will build, then build the document. This will create the usual plethora of LaTex working files, but Git ignore all of these except for the final output (which we assume is a pdf file) -- see Figure \ref{firstbuild} where we can see that all Git has registered is the new pdf file.
+\item Edit the tex file such that it will build, then build the document. This will create the usual plethora of LaTex working files, but Git will ignore all of these except for the final output (which we assume is a pdf file) -- see Figure \ref{firstbuild} where we can see that all Git has registered is the new pdf file.
 \item Do another commit so that Git records the pdf file. In this case the summary description may not be filled in for you, so that needs to be done before Git will allow you to do the commit. Once the commit completes, you will be back to Figure \ref{repofirstview} again.
 \end{enumerate}
-If you have got this far, then you have basically learnt how to edit and build LaTex whilst recording your changes with Git. If that is all you want to do, i.e. you don't need to use the cloud facilities of GitHub, then, whilst there are some slightly more advanced features described below, you are essentially done.
+If you have gotten this far, then you have basically learnt how to edit and build LaTex documents whilst recording your changes with Git. If that is all you want to do, i.e. you don't need to use the cloud facilities of GitHub, then, whilst there are some slightly more advanced features described below, you are essentially done.
 
 \begin{figure}
 \centering
@@ -164,16 +167,16 @@ If you have got this far, then you have basically learnt how to edit and build L
 You will see in the Desktop that you are being given the option to `publish' your repo to GitHub, there are basically three steps to this -- create an account on GitHub, link it to GitHub Desktop, publish.
 \begin{enumerate}
 \item Create your GitHub account. This is fairly straight forward, requiring all the usual things you need to create accounts on websites.
-\item In the Desktop click the `Publish' button, this will give you a dialogue asking you to log into GitHub. Ignore the Enterprise Server option and sign in. In the following screen you get the option to sign in with the dialogue or through your browser. If you use the dialogue then the process completes more or less automatically, but you should get a message to your GitHub registered email address saying:
+\item In the Desktop click the `Publish' button, this will give you a dialogue asking you to log into GitHub. Ignore the Enterprise Server option and sign in. In the following screen you get the option to sign in with the dialogue or through your browser. If you use the dialogue then the process completes more or less automatically, but you should get a message into your GitHub registered email address saying:
 \begin{quote}
 [GitHub] A first-party GitHub OAuth application has been added to your account.
 \end{quote}
-This is how GitHub links your deskptop application to your GitHub account. If you instead use the `sign in using your browser' button, this achieves the same end, but with a bit more transparency as to what GitHub is doing.
-\item If you now go to your GitHub account in your browser (you may need to log in), you will see that the repo we created above has been published to GitHub, including all the commits we did.
+This is how GitHub links your desktop application to your GitHub account. If you instead use the `sign in using your browser' button, this achieves the same end, but with a bit more transparency as to what GitHub is doing.
+\item If you now go to your GitHub account in your browser (you may need to log in), you will see that the repo we created above has been published to GitHub, including all the commits we did. Note the public/private options when publishing to GitHub.
 \end{enumerate}
-If you now make further changes and commit them, using the same process as above, the next screen is slightly different to Figure \ref{repofirstview}. Here we see that the option now is to `Push' our latest changes to GitHub, see Figure \ref{firstpush}. How often you push chnages to GitHub is up to you, it could be every commit, perhaps if you are making some crucial changes you really don't want to lose, or it could be daily or longer intervals. Note that when you do push, it effectively clones your local repo onto the GitHub remote repo, so \textit{all} your commits, not just the last one, will be pushed.
+If you now make further changes and commit them, using the same process as above, the next screen is slightly different to Figure \ref{repofirstview}. Here we see that the option now is to `Push' our latest changes to GitHub, see Figure \ref{firstpush}. How often you push changes to GitHub is up to you, it could be every commit, perhaps if you are making some crucial changes you really don't want to lose, or it could be daily or longer intervals. Note that when you do push, it effectively clones your local repo onto the GitHub remote repo, so \textit{all} your commits, not just the last one, will be pushed.
 
-Other than the advanced topics below, the guide is now more or less complete and you shoudlk be able to manage files with Git and upload them to GitHub.
+Other than the advanced topics below, the guide is now more or less complete and you should be able to manage files with Git and upload them to GitHub.
 
 \begin{figure}
 \centering
@@ -237,7 +240,7 @@ The best way to revert back to an older version of a document is to download it 
 
 However the easiest option is to tag the commit you are interested in, then you can access that commit directly using the `tags' link under `Releases' (provided, of course, that the tag has been pushed to GitHub). This link will take you to a list of tagged commits and you can download directly from the list, see Figure \ref{ghtag2}. 
 
-Once you have a zip with the tagged files, there are a number of things that could be done. The simplest is just to use the files to re--build the document using MiKTex, without necessarily merging the files back into the repo. However, if you do want this version of your document in Git then there are the following options:
+Once you have a zip with the tagged files, there are a number of things that could be done. The simplest is just to use the files to re--build the document using MiKTex, without necessarily merging the files back into your local repo. However, if you do want this version of your document in Git then there are the following options:
 \begin{itemize}
 \item Create a new repo. This is the easiest and cleanest solution, but may not always be what you need.
 \item Create a new branch, unzip the files into this branch. This will create a branch that matches the tag, but with one commit only.
@@ -246,15 +249,38 @@ Once you have a zip with the tagged files, there are a number of things that cou
 
 
 \subsection{Keeping Things Tidy}
-One aspect of LaTex is that it does create a lot of additional files. In particular packages such as TikZ-Feynman create a large number of such files. To keep your folder tidy, it often makes sense to put as many of the working files as possible in sub folders. If you do this Git will still find them, and load them into the changes list as long as they are not ignored files.
+One aspect of LaTex is that it does create a lot of additional files. In particular packages such as TikZ-Feynman create a large number of such files. To keep your folder tidy, it often makes sense to put as many of the working files as possible in sub folders. If you do this Git will still find them, and load them into the changes list as long as the file types are not listed in .gitignore.
 
-For a package like TikZ-Feynman, what you end up with is each Feynman diagram being tracked, and often this just clutters the repo without adding much value -- the diagrams can always be re--built from code so storing them on GitHub or in Git has limited value. However you can't simply ignore all pdf files as this will ignore the main file too. In principle you can create a regexp type entry in .gitignore which will cause Git to ignore the figure pdfs, but still see the main output. However the easiest option is to edit .gitignore to ignore the whole folder. This is achieved by adding the following to .gitignore:
+For a package like TikZ-Feynman, what you end up with is each Feynman diagram being tracked, and often this just clutters the repo without adding much value -- the diagrams can always be re--built from code so storing them on GitHub or in Git has limited value. However you can't simply ignore all pdf files as this will ignore the main file too. In principle you can create a regexp type entry in .gitignore which will cause Git to ignore the figure pdfs, but still see the main output. However the easiest option is to edit .gitignore to ignore the whole sub--folder where TikZ-Feynman has stored files. This is achieved by adding the following to .gitignore:
 \begin{quote}\setlength{\parskip}{0pt}
 \# Folder for TikZ-Feynman files
 
 pgf-img/
 \end{quote}
 Where `pgf-img' is the subfolder that the package uses to create the figures (the comment line isn't strictly necessary of course).
+
+\section{Summary}
+\label{summary}
+Whilst not perfect, a system like Git/GitHub offers many advantages for authors, particularly if they are using LaTex. For non-coders, the barrier to adoption may seem high but that's mostly down to unfamiliarity with what is quite a specialised area of Engineering (and should be fixed entirely by this document).
+
+The particular facilities that authors should find useful are:
+\begin{itemize}
+\item A means to save and archive Tex files whilst a document is being written.
+\item A facility to save/back up the same Tex files to a cloud repository, and thence a means to carry your work between platforms without needing to carry data around on a flashdrive, for example.
+\item The ability to roll back changes and/or re--create an older version of a document.
+\item A means to branch a document such that different versions can be worked on simultaneously (admittedly probably not a common requirement).
+\item A way to collaborate between authors that's more powerful than something like Google Docs.
+\end{itemize}
+A more subtle facility that is not often required, but could be really useful if it's needed, comes once you push a repo onto GitHub. This is that it will establish a copyright priority, as well as pretty significant evidence of provenance should ownership of copyright material ever be challenged. This is similar to facilites that are offered for writers to `register' works such as screenplays.
+
+\subsection{Further Development}
+These are a couple of suggestions as to how this document could be further developed:
+\begin{itemize}
+\item Add a section on integrating or working with Git for Windows, or indeed the core Linux implementation of Git.
+\item (More advanced) A description of how Git could be integrated into an editor such as Notepad++ which can run macros and plugins.
+\end{itemize}
+
+
 
 \subsubsection*{Version History}
 \renewcommand{\arraystretch}{1.2}
@@ -266,6 +292,8 @@ Version&Date&Comment\\
 0.A&10 Jul 20&Initial Draft\\
 \hline
 0.B&14 Jul 20&Minor updates to Section \ref{whatis}\\
+\hline
+\currentversion&4 Aug 20&Section \ref{summary} added.\\
 \hline
 \end{tabular}
 \end{table}
